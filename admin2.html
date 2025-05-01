@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Student Applications</title>
+    <style>
+        
+        :root {
+            --primary: #1a3a6e;
+            --primary-light: #2c5499;
+            --secondary: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+            --warning: #ffc107;
+            --info: #17a2b8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .university-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
+        .university-logo img {
+            height: 90px;
+            margin-right: 15px;
+        }
+        .options-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        .option-button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .option-button:hover {
+            background-color: #0056b3;
+        }
+
+        .content-area {
+            margin-top: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+        
+
+        
+
+        
+        .search-container {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-container input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 250px;
+        }
+        
+        .search-container button {
+            background-color: #1a3a5f;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-container button:hover {
+            background-color: #0f2949;
+        }
+        
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .filter-item label {
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .filter-item select {
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+        
+        .applications-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        .applications-table th, .applications-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .applications-table th {
+            background-color: #f0f4f8;
+            color: #1a3a5f;
+            font-weight: 600;
+        }
+        
+        .applications-table tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .status-pending {
+            color: #f39c12;
+            font-weight: 500;
+        }
+        
+        .action-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .action-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .action-select {
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: flex-end;
+            gap: 5px;
+            margin-top: 20px;
+        }
+        
+        .pagination button {
+            background-color: #f0f4f8;
+            border: 1px solid #ddd;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .pagination button.active {
+            background-color: #1a3a5f;
+            color: white;
+        }
+        
+        .pagination button:hover:not(.active) {
+            background-color: #e0e4e8;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .badge-scholarship {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+        
+        .badge-hostel {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .badge-library {
+            background-color: #fff3e0;
+            color: #e65100;
+        }
+        
+        .badge-exam {
+            background-color: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            width: 70%;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #777;
+            cursor: pointer;
+        }
+        
+        .modal-header {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .modal-footer {
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: #1a3a5f;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0f2949;
+        }
+        
+        .btn-danger {
+            background-color: #e53935;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c62828;
+        }
+        
+        .btn-secondary {
+            background-color: #757575;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #616161;
+        }
+        
+        .student-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .info-group {
+            margin-bottom: 15px;
+        }
+        
+        .info-group label {
+            display: block;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        
+        .info-group p {
+            padding: 8px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+     <div class="container">
+    <header>
+        <div class="university-logo">
+          <img src="https://online.jntuksdc.co.in/images/logo.png" width="150px">
+            <div>
+             <h1> JAWAHARLAL NEHRU TECHNOLOGICAL UNIVERSITY <br> KAKINADA-533003,A.P.(India) </h1>
+               
+            </div>
+        </div>
+    </header><br>
+    <div class="options-bar">
+        
+        
+        <button class="option-button" onclick="showContent('Applications')">Applications</button>
+        <button class="btn w-100" style="background-color:#007bff;">
+            <a href="applicationhistory.html" style="display:block; color:white; text-decoration:none;">Application History</a>
+        </button>
+    </div><br>
+    <div id="pending approvals" class="tab-content"></div>
+        <div id="application history" class="tab-content"></div>
+        
+    
+
+        
+        <div class="filters">
+            <div class="filter-item">
+                <label for="filter-date">Date:</label>
+                <select id="filter-date">
+                    <option value="">All Dates</option>
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                    <option value="month">This Month</option>
+                </select>
+            </div>
+            <div class="filter-item">
+                <label for="filter-type">Application Type:</label>
+                <select id="filter-type">
+                    <option value="">All Types</option>
+                    <option value="PC">provisional certificate</option>
+                    <option value="TC">Transfer certificate</option>
+                    <option value="OD">original degree</option>
+                    <option value="CMM">consolidated marks memo</option>
+                </select>
+            </div>
+            <div class="filter-item">
+                <label for="filter-status">Status:</label>
+                <select id="filter-status">
+                    <option value="">Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                </select>
+            </div>
+        </div>
+        
+        <table class="applications-table">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Date</th>
+                    <th>H-No</th>
+                    <th>Student Name</th>
+                    <th>Applied For</th>
+                    <th>View Application</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>28-Apr-2025</td>
+                    <td>H12345</td>
+                    <td>ravi</td>
+                    <td><span class="badge badge-scholarship">CMM</span></td>
+                    <td><button class="action-btn" onclick="openApplicationModal('John Smith', 'H12345')">View</button></td>
+                    <td>
+                        <select class="action-select" onchange="updateStatus(this, 1)">
+                            <option value="">Select Action</option>
+                            <option value="approve">Approve</option>
+                            <option value="reject">Reject</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>27-Apr-2025</td>
+                    <td>H67890</td>
+                    <td>Sara</td>
+                    <td><span class="badge badge-hostel">OD</span></td>
+                    <td><button class="action-btn" onclick="openApplicationModal('Sarah Johnson', 'H67890')">View</button></td>
+                    <td>
+                        <select class="action-select" onchange="updateStatus(this, 2)">
+                            <option value="">Select Action</option>
+                            <option value="approve">Approve</option>
+                            <option value="reject">Reject</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>26-Apr-2025</td>
+                    <td>H24680</td>
+                    <td>Michael</td>
+                    <td><span class="badge badge-library">TC</span></td>
+                    <td><button class="action-btn" onclick="openApplicationModal('Michael Brown', 'H24680')">View</button></td>
+                    <td>
+                        <select class="action-select" onchange="updateStatus(this, 3)">
+                            <option value="">Select Action</option>
+                            <option value="approve">Approve</option>
+                            <option value="reject">Reject</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>25-Apr-2025</td>
+                    <td>H13579</td>
+                    <td>kaveri</td>
+                    <td><span class="badge badge-exam">PC</span></td>
+                    <td><button class="action-btn" onclick="openApplicationModal('Emma Wilson', 'H13579')">View</button></td>
+                    <td>
+                        <select class="action-select" onchange="updateStatus(this, 4)">
+                            <option value="">Select Action</option>
+                            <option value="approve">Approve</option>
+                            <option value="reject">Reject</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>24-Apr-2025</td>
+                    <td>H97531</td>
+                    <td>charan</td>
+                    <td><span class="badge badge-scholarship">OD</span></td>
+                    <td><button class="action-btn" onclick="openApplicationModal('Robert Chen', 'H97531')">View</button></td>
+                    <td>
+                        <select class="action-select" onchange="updateStatus(this, 5)">
+                            <option value="">Select Action</option>
+                            <option value="approve">Approve</option>
+                            <option value="reject">Reject</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>23-Apr-2025</td>
+                    <td>H86420</td>
+                    <td>Gowtham</td>
+                    <td><span class="badge badge-hostel">CMM</span></td>
+                    <td><button class="action-btn" onclick="openApplicationModal('Lisa Taylor', 'H86420')">View</button></td>
+                    <td>
+                        <select class="action-select" onchange="updateStatus(this, 6)">
+                            <option value="">Select Action</option>
+                            <option value="approve">Approve</option>
+                            <option value="reject">Reject</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>22-Apr-2025</td>
+                    <td>H35791</td>
+                    <td>Pallavi</td>
+                    <td><span class="badge badge-library">TC</span></td>
+                    <td><button class="action-btn" onclick="openApplicationModal('Daniel Miller', 'H35791')">View</button></td>
+                    <td>
+                        <select class="action-select" onchange="updateStatus(this, 7)">
+                            <option value="">Select Action</option>
+                            <option value="approve">Approve</option>
+                            <option value="reject">Reject</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>21-Apr-2025</td>
+                    <td>H24682</td>
+                    <td>Abiram</td>
+                    <td><span class="badge badge-exam">PC</span></td>
+                    <td><button class="action-btn" onclick="openApplicationModal('Olivia Garcia', 'H24682')">View</button></td>
+                    <td>
+                        <select class="action-select" onchange="updateStatus(this, 8)">
+                            <option value="">Select Action</option>
+                            <option value="approve">Approve</option>
+                            <option value="reject">Reject</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="pagination">
+            <button>Previous</button>
+            <button class="active">1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>Next</button>
+        </div>
+    </div>
+    
+    <!-- Application Modal -->
+    <div id="applicationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeApplicationModal()">&times;</span>
+            <div class="modal-header">
+                <h2>Application Details</h2>
+            </div>
+            
+            <div class="student-info">
+                <div class="info-group">
+                    <label>Full Name</label>
+                    <p id="modal-student-name">John Smith</p>
+                </div>
+                <div class="info-group">
+                    <label>H-No</label>
+                    <p id="modal-h-no">H12345</p>
+                </div>
+                <div class="info-group">
+                    <label>Department</label>
+                    <p>Computer Science</p>
+                </div>
+                <div class="info-group">
+                    <label>Year of Study</label>
+                    <p>3rd Year</p>
+                </div>
+                <div class="info-group">
+                    <label>Email</label>
+                    <p>john.smith@university.edu</p>
+                </div>
+                <div class="info-group">
+                    <label>Phone</label>
+                    <p>+1 (555) 123-4567</p>
+                </div>
+            </div>
+            
+            <div class="info-group">
+                <label>Application Type</label>
+                <p>Scholarship - Merit-based Full Tuition Waiver</p>
+            </div>
+            
+            <div class="info-group">
+                <label>Application Date</label>
+                <p>28-Apr-2025</p>
+            </div>
+            
+            <div class="info-group">
+                <label>Reason for Application</label>
+                <p>I am applying for the merit-based scholarship due to my academic performance over the last two semesters. I have maintained a GPA of 3.9 and have participated in several research projects under Prof. Williams in the AI lab. I am from a middle-income family and this scholarship would greatly help me focus more on my academics and research without financial stress.</p>
+            </div>
+            
+            <div class="info-group">
+                <label>Supporting Documents</label>
+                <p>
+                    - Academic Transcript (transcript_johnsmith.pdf)<br>
+                    - Recommendation Letter (recommendation_prof_williams.pdf)<br>
+                    - Research Projects Portfolio (research_portfolio.pdf)<br>
+                    - Financial Statement (financial_statement.pdf)
+                </p>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeApplicationModal()">Close</button>
+                <button class="btn btn-danger" onclick="rejectApplication()">Reject</button>
+                <button class="btn btn-primary" onclick="approveApplication()">Approve</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        
+        
+        // Tab switching functionality
+        function openTab(tabName) {
+            // Hide all tab content
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+            
+            // Remove active class from all tabs
+            const tabs = document.getElementsByClassName("tab");
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+            
+            // Show the specific tab content
+            document.getElementById(tabName).classList.add("active");
+            
+            // Add active class to the selected tab
+            const selectedTab = document.querySelector(`.tab[onclick="openTab('${tabName}')"]`);
+            selectedTab.classList.add("active");
+        }
+
+        // Form submission handler
+        document.getElementById("registrationForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            // In a real application, this would send data to the server
+            alert("Your admin access request has been submitted for approval.");
+            
+            // Clear the form
+            this.reset();
+        });
+
+        // Approval functionality
+        function approveApplication(id) {
+            // In a real application, this would update the database
+            alert(`Application #${id} has been approved and added to history.`);
+            
+            // This would typically refresh the pending list from the server
+            // For demo, we'll just simulate removing the row
+            const row = document.querySelector(`.applications-table tbody tr:nth-child(${id})`);
+            if (row) row.style.display = "none";
+        }
+
+        // Rejection functionality
+        function rejectApplication(id) {
+            // In a real application, this would update the database
+            const reason = prompt("Please provide a reason for rejection:");
+            if (reason) {
+                alert(`Application #${id} has been rejected and added to history.`);
+                
+                // This would typically refresh the pending list from the server
+                // For demo, we'll just simulate removing the row
+                const row = document.querySelector(`.applications-table tbody tr:nth-child(${id})`);
+                if (row) row.style.display = "none";
+            }
+        }
+        
+        
+    </script>
+    </script>
+</body>
+</html>
