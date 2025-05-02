@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Registration - JNTUK Exam Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eef2f7;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 500px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #003366;
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input[type="text"], input[type="email"], input[type="password"], input[type="date"], select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .flex-field {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .flex-field input[type="text"], .flex-field input[type="email"] {
+      flex: 2;
+    }
+    .flex-field button {
+      flex: 1;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .flex-field button:hover {
+      background-color: #0056b3;
+    }
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .checkbox-container input {
+      margin-right: 8px;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .submit-btn:hover {
+      background-color: #218838;
+    }
+    .mandatory {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Student Registration - JNTUK Exam Portal</h2>
+
+  <form>
+
+    <label>Roll Number <span class="mandatory">*</span></label>
+    <input type="text" pattern="[0-9A-Za-z]{10,15}" required placeholder="Enter your Roll Number">
+
+    <label>Name <span class="mandatory">*</span></label>
+    <input type="text" pattern="[A-Za-z ]{2,50}" required placeholder="Enter your Full Name">
+
+    <label>Date of Birth <span class="mandatory">*</span></label>
+    <input type="date" required>
+
+    <label>Gender <span class="mandatory">*</span></label>
+    <select required>
+      <option value="">Select Gender</option>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+    </select>
+
+    <label>Email ID <span class="mandatory">*</span></label>
+    <div class="flex-field">
+      <input type="email" id="email" pattern="[a-z0-9._%+-]+@gmail\.com$" required placeholder="Enter your Gmail ID">
+      <button type="button" onclick="sendEmailOtp()">Send OTP</button>
+    </div>
+
+    <label>Email OTP <span class="mandatory">*</span></label>
+    <input type="text" id="email-otp" pattern="[0-9]{6}" required placeholder="Enter Email OTP">
+
+    <label>Phone Number <span class="mandatory">*</span></label>
+    <div class="flex-field">
+      <input type="text" id="phone" pattern="[0-9]{10}" required placeholder="Enter 10-digit Phone Number">
+      <button type="button" onclick="sendPhoneOtp()">Send OTP</button>
+    </div>
+
+    <label>Phone OTP <span class="mandatory">*</span></label>
+    <input type="text" id="phone-otp" pattern="[0-9]{6}" required placeholder="Enter Phone OTP">
+
+    <label>Aadhaar Number <span class="mandatory">*</span></label>
+    <input type="text" pattern="[0-9]{12}" required placeholder="Enter 12-digit Aadhaar Number">
+
+    <label>Address <span class="mandatory">*</span></label>
+    <input type="text" required placeholder="Enter your Address">
+
+    <label>Year <span class="mandatory">*</span></label>
+    <select required>
+      <option value="">Select Year</option>
+      <option>1st</option>
+      <option>2nd</option>
+      <option>3rd</option>
+      <option>4th</option>
+    </select>
+
+    <label>Branch <span class="mandatory">*</span></label>
+    <select required>
+      <option value="">Select Branch</option>
+      <option>CSE</option>
+      <option>ECE</option>
+      <option>EEE</option>
+      <option>Chemical Engineering</option>
+      <option>Mechanical Engineering (ME)</option>
+      <option>Petroleum Engineering</option>
+      <option>Civil Engineering (CE)</option>
+      <option>Food Technology</option>
+      <option>MBA</option>
+      <option>MCA</option>
+    </select>
+
+    <label>Password <span class="mandatory">*</span></label>
+    <input type="password" pattern=".{6,}" required placeholder="Minimum 6 characters">
+
+    <label>Confirm Password <span class="mandatory">*</span></label>
+    <input type="password" pattern=".{6,}" required placeholder="Confirm Password">
+
+    <div class="checkbox-container">
+      <input type="checkbox" required>
+      <label>I accept the <a href="#">Terms and Conditions</a> <span class="mandatory">*</span></label>
+    </div>
+
+    <button type="submit" class="submit-btn">Register</button>
+
+  </form>
+</div>
+
+<script>
+function sendPhoneOtp() {
+  const phone = document.getElementById('phone').value;
+  if (/^[0-9]{10}$/.test(phone)) {
+    alert("OTP sent to Phone: " + phone + " (Demo)");
+  } else {
+    alert("Please enter a valid 10-digit phone number!");
+  }
+}
+
+function sendEmailOtp() {
+  const email = document.getElementById('email').value;
+  if (/^[a-z0-9._%+-]+@gmail\.com$/.test(email)) {
+    alert("OTP sent to Email: " + email + " (Demo)");
+  } else {
+    alert("Please enter a valid Gmail address!");
+  }
+}
+</script>
+
+</body>
+</html>

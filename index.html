@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>JNTUK Exam Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f8;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo-section img {
+      height: 60px;
+      margin-right: 15px;
+    }
+
+    .logo-section h2 {
+      font-size: 22px;
+    }
+
+    nav {
+      background-color: #00509e;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 14px 20px;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    nav a:hover, nav a.active {
+      background-color: #00264d;
+    }
+
+    .main-content {
+      max-width: 1100px;
+      margin: 40px auto;
+      background: white;
+      padding: 50px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+
+    .main-content h1 {
+      color: #003366;
+      margin-bottom: 20px;
+    }
+
+    .main-content p {
+      font-size: 17px;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .notices {
+      background-color: #e8f0fe;
+      margin: 20px 0;
+      padding: 20px;
+      border-left: 5px solid #003366;
+      text-align: left;
+      border-radius: 8px;
+    }
+
+    .notices h3 {
+      margin-bottom: 10px;
+      color: #003366;
+    }
+
+    .notices ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+
+    .login-links {
+      margin-top: 30px;
+    }
+
+    .login-links a {
+      text-decoration: none;
+      background-color: #007bff;
+      color: white;
+      padding: 12px 25px;
+      margin: 10px;
+      border-radius: 5px;
+      display: inline-block;
+      transition: background 0.3s ease;
+      font-size: 16px;
+    }
+
+    .login-links a:hover {
+      background-color: #0056b3;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      background-color: #003366;
+      color: white;
+      margin-top: 40px;
+      font-size: 14px;
+    }
+
+    footer p {
+      margin: 5px 0;
+    }
+
+    @media (max-width: 768px) {
+      header, nav {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .main-content {
+        padding: 30px 20px;
+      }
+
+      .logo-section {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-section">
+      <!-- Replace below with actual path or URL -->
+      <img src="https://online.jntuksdc.co.in/images/logo.png" width="100px" height="100px" alt="JNTUK Logo" />
+      <h2>Jawaharlal Nehru Technological University, Kakinada (JNTUK)</h2>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#" class="active">Home</a>
+    <a href="#">Apply for Exam</a>
+    <a href="#">Apply for TC</a>
+    <a href="#">Apply for OD</a>
+    <a href="#">Apply for CMM</a>
+    <a href="#">Logout</a>
+  </nav>
+
+  <div class="main-content">
+    <h1>Welcome to JNTUK Online Exam Portal</h1>
+    <p>
+      
+      This portal provides online services for students of JNTU Kakinada to apply for University Examinations, Transfer Certificates (TC), Consolidated Marks Memos (CMM), and Original Degrees (OD). Registered students can access personalized dashboards to apply and track their academic services securely and efficiently.
+    </p>
+
+    <div class="notices">
+      <h3>📢 Important Notices</h3>
+      <ul>
+        <li>OD Applications for 2025 pass-outs open till <strong>30th June</strong>.</li>
+        <li>Mid-Term Exam Schedule released — <a href="#">Download PDF</a>.</li>
+        <li>Exam Fee Payment Last Date: <strong>15th May 2025</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="login-links">
+      <a href="adminlog.html">Login</a>
+      <a href="registeration.html">New Student? Register</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>Jawaharlal Nehru Technological University, Kakinada (JNTUK)</p>
+    <p>Email: support@jntuk.edu.in | Phone: +91-891-2844500</p>
+    <p>Address: Kakinada, Andhra Pradesh, India - 533003</p>
+    <p>© 2025 JNTUK. All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>

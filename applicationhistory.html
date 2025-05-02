@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Application History</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .tab-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .history-table th, .history-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .history-table th {
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .history-table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .status-approved {
+            color: green;
+            font-weight: bold;
+        }
+
+        .status-rejected {
+            color: red;
+            font-weight: bold;
+        }
+
+        /* Specific styles for Student Applications */
+        .history-table th:nth-child(1), /* Name */
+        .history-table td:nth-child(1),
+        .history-table th:nth-child(2), /* Email */
+        .history-table td:nth-child(2),
+        .history-table th:nth-child(3), /* Student ID */
+        .history-table td:nth-child(3),
+        .history-table th:nth-child(4), /* Application Type */
+        .history-table td:nth-child(4) {
+            /* Keep these columns */
+        }
+
+        .history-table th:nth-child(5), /* Department (No longer relevant) */
+        .history-table td:nth-child(5) {
+            display: none; /* Hide Department */
+        }
+
+        .history-table th:nth-child(6), /* Date Applied */
+        .history-table td:nth-child(6),
+        .history-table th:nth-child(7), /* Date Processed */
+        .history-table td:nth-child(7),
+        .history-table th:nth-child(8), /* Status */
+        .history-table td:nth-child(8),
+        .history-table th:nth-child(9), /* Processed By */
+        .history-table td:nth-child(9),
+        .history-table th:nth-child(10), /* Comments */
+        .history-table td:nth-child(10) {
+            /* Keep these columns */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="history" class="tab-content">
+        <h2>Student Application History</h2>
+        <p>Complete record of all student OD, TC, and CMM applications and their status.</p>
+
+        <table class="history-table">
+            <thead>
+                <tr>
+
+                    <th>S.No</th>
+                    <th>Date</th>
+                    <th>H-No</th>
+                    <th>Student Name</th>
+                    <th>Applied For</th>
+                    <th>Action</th>
+                    <th>Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>28-Apr-2025</td>
+                    <td>H12345</td>
+                    <td>ravi</td>
+                    <td>cmm</td>
+                    <td class="status-approved">Approved</td>
+                    <td>OD issued successfully.</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>27-Apr-2025</td>
+                    <td>H67890</td>
+                    <td>Sara</td>
+                    <td>OD</td>
+                    <td class="status-rejected">Rejected</td>
+                    <td>Pending dues need to be cleared.</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>26-Apr-2025</td>
+                    <td>H24689</td>
+                    <td>Michael</td>
+                    <td> TC</td>
+                    <td class="status-approved">Approved</td>
+                    <td>TC dispatched.</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>25-Apr-2025</td>
+                    <td>H13579</td>
+                    <td>Kaveri</td>
+                    <td>CMM</td>
+                    <td class="status-approved">Approved</td>
+                    <td>No issues found.</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>24-Apr-2025</td>
+                    <td>H97531</td>
+                    <td>charan</td>
+                    <td>OD</td>
+                    <td class="status-rejected">Rejected</td>
+                    <td>Incomplete application form.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
